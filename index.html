@@ -1,17 +1,51 @@
 <!DOCTYPE html>
 <html>
 <body>
-<script>
-(function(){var _id="b30f583ca89fc7125ce3ad6991a54e9d";while(document.getElementById("timer"+_id))_id=_id+"0";document.write("<div id='timer"+_id+"' style='min-width:382px;height:72px;'></div>");var _t=document.createElement("script");_t.src="http://megatimer.ru/timer/timer.min.js";var _f=function(_k){var l=new MegaTimer(_id, {"view":[1,1,1,1],"type":{"currentType":"1","params":{"usertime":true,"tz":"3","utc":1501545600000}},"design":{"type":"text","params":{"number-font-family":{"family":"Comfortaa","link":"<link href='http://fonts.googleapis.com/css?family=Comfortaa&subset=latin,cyrillic' rel='stylesheet' type='text/css'>"},"number-font-size":"60","number-font-color":"#000","separator-margin":"20","separator-on":true,"separator-text":":","text-on":true,"text-font-family":{"family":"Comfortaa","link":"<link href='http://fonts.googleapis.com/css?family=Comfortaa&subset=latin,cyrillic' rel='stylesheet' type='text/css'>"},"text-font-size":"12","text-font-color":"#c7c7c7"}},"designId":1,"theme":"white","width":382,"height":72});if(_k!=null)l.run();};_t.onload=_f;_t.onreadystatechange=function(){if(_t.readyState=="loaded")_f(1);};var _h=document.head||document.getElementsByTagName("head")[0];_h.appendChild(_t);}).call(this);
-</script>
+<script src="jquery.countdown.js"></script>
+<div id="clock"></div>
+
 <script type="text/javascript">
-    document.write ('<table width="100%" border="1">');
-    for (i=1; i<6; i++) {
-      document.writeln("<tr>");
-      for (j=1; j<6; j++) document.write("<td>" + i + j + "<\/td>");
-      document.writeln("<\/tr>");
+  var $clock = $('#clock')
+    .on('update.countdown', function(event) {
+      var format = '%H:%M:%S';
+      if(event.offset.totalDays > 0) {
+        format = '%-d day%!d ' + format;
+      }
+      if(event.offset.weeks > 0) {
+        format = '%-w week%!w ' + format;
+      }
+      $(this).html(event.strftime(format));
+    })
+    .on('finish.countdown', function(event) {
+      $(this).parent()
+        .addClass('disabled')
+        .html('This offer has expired!');
+    });
+
+  $('#time-selector').on('change', function() {
+    var val = $(this).val().toString().match(/^([0-9\.]{1,})([a-z]{1})$/),
+        qnt = parseFloat(val[1]),
+        mod = val[2];
+    switch(mod) {
+      case 's':
+        val = qnt * 1000;
+        break;
+      case 'h':
+        val = qnt * 60 * 60 * 1000;
+        break;
+      case 'd':
+        val = qnt * 24 * 60 * 60 * 1000;
+        break;
+      case 'w':
+        val = qnt * 7 * 24 * 60 * 60 * 1000;
+        break; // Break here to no enter the else value
+      default:
+        val = 0;
     }
-    document.write ("<\/table> ");
-  </script>
+    selectedDate = new Date().valueOf() + val;
+    $clock.countdown(selectedDate.toString());
+  }).trigger('change');
+</script>
+
 </body>
 </html> 
