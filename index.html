@@ -1,24 +1,18 @@
 <!DOCTYPE html>
 <html>
+<head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="/path/to/jquery.countdown.js"></script>
+</head>
 <body>
 
-<h1>My First JavaScript</h1>
-
-<button type="button"
-onclick="document.getElementById('demo').innerHTML = Date()">
-Click me to display Date and Time.</button>
-
-<p id="demo"></p>
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="http://e-timer.ru/js/etimer.js"></script>
+<h1>My 2 JavaScript</h1>
 <script type="text/javascript">
-	jQuery(document).ready(function() {
-		jQuery(".eTimer").eTimer({
-			etType: 0, etDate: "12.07.2017.0.0", etTitleText: "Hi:", etTitleSize: 20, etShowSign: 1, etSep: ":", etFontFamily: "Trebuchet MS", etTextColor: "#a3a3a3", etPaddingTB: 15, etPaddingLR: 15, etBackground: "#333333", etBorderSize: 0, etBorderRadius: 2, etBorderColor: "white", etShadow: " 0px 0px 10px 0px #333333", etLastUnit: 4, etNumberFontFamily: "Impact", etNumberSize: 35, etNumberColor: "white", etNumberPaddingTB: 0, etNumberPaddingLR: 8, etNumberBackground: "#11abb0", etNumberBorderSize: 0, etNumberBorderRadius: 5, etNumberBorderColor: "white", etNumberShadow: "inset 0px 0px 10px 0px rgba(0, 0, 0, 0.5)"
-		});
-	});
+$(function() {
+    $('.yourCountdownContainer').countdown({
+        date: "June 7, 2087 15:03:26"
+    });
+});
 </script>
-<div class="eTimer"></div>
-
 </body>
 </html> 
